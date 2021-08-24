@@ -6,7 +6,7 @@ export function Success() {
   return (
     <div>
       <Button variant="contained" color="primary">
-        <Link to="welcome">OK</Link>
+        <Link to="/welcome">OK</Link>
       </Button>
     </div>
   );
