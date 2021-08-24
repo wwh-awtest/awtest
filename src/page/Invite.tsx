@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { useForm } from "react-hook-form";
-import { Button, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { InviteService } from "../service/InviteService";
+import { Button } from "../component/Button";
 
 interface InviteRequest {
   name: string;
@@ -12,6 +13,10 @@ interface InviteRequest {
 
 export function Invite() {
   const history = useHistory();
+  const [state, dispatch] = useReducer(inviteRequestReducer, {
+    loading: false,
+    errorMessage: null,
+  });
   const {
     register,
     handleSubmit,
@@ -19,8 +24,14 @@ export function Invite() {
     formState: { errors },
   } = useForm<InviteRequest>();
   const onSubmit = handleSubmit(({ name, email }) => {
+    dispatch({ type: "request" });
     InviteService.requestInvite({ name, email }).then((_) => {
-      history.push("/success");
+      if (_ === "Registered") {
+        dispatch({ type: "success" });
+        history.push("/success");
+      } else {
+        dispatch({ type: "failed", message: _.errorMessage });
+      }
     });
   });
 
@@ -59,9 +70,38 @@ export function Invite() {
         error={errors.confirmEmail != null}
         helperText={errors.confirmEmail?.message}
       />
-      <Button variant="contained" color="primary" type="submit">
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        loading={state.loading}
+      >
         Send
       </Button>
+      {state.errorMessage}
     </form>
   );
+}
+
+interface InviteRequestState {
+  loading: boolean;
+  errorMessage: "success" | string | null;
+}
+
+type Action =
+  | { type: "request" }
+  | { type: "success" }
+  | { type: "failed"; message: string };
+function inviteRequestReducer(
+  state: InviteRequestState,
+  action: Action
+): InviteRequestState {
+  switch (action.type) {
+    case "request":
+      return { loading: true, errorMessage: null };
+    case "success":
+      return { loading: false, errorMessage: null };
+    case "failed":
+      return { loading: false, errorMessage: action.message };
+  }
 }
