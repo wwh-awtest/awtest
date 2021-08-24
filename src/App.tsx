@@ -1,8 +1,8 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Welcome } from "./Welcome";
-import { Invite } from "./Invite";
-import { Success } from "./Success";
+import { Welcome } from "./page/Welcome";
+import { Invite } from "./page/Invite";
+import { Success } from "./page/Success";
 import "./App.css";
 
 function App() {
