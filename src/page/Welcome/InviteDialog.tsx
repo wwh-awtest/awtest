@@ -15,7 +15,6 @@ const useStyles = makeStyles({
   form: {
     display: "flex",
     flexDirection: "column",
-    //    padding: "60px 40px",
     "& > *": {
       marginBottom: 10,
     },
