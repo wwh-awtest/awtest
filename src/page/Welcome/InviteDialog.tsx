@@ -67,6 +67,7 @@ export function InviteDialog({ onClose, onSuccess }: Props) {
         <form onSubmit={onSubmit} className={classes.form}>
           <TextField
             label="Full name"
+            placeholder="Please enter full name"
             {...register("name", {
               required: "Full name is required",
               minLength: {
@@ -79,6 +80,7 @@ export function InviteDialog({ onClose, onSuccess }: Props) {
           />
           <TextField
             label="Email"
+            placeholder="Please enter your email"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -91,6 +93,7 @@ export function InviteDialog({ onClose, onSuccess }: Props) {
           />
           <TextField
             label="Confirm Email"
+            placeholder="Please confirm your email"
             {...register("confirmEmail", {
               required: "Confirm Email is required",
               validate: (value) =>
