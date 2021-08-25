@@ -1,6 +1,5 @@
 import React from "react";
 import { Welcome } from "./page/Welcome";
-import "./App.css";
 import { makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => {
