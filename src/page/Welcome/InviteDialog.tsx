@@ -6,6 +6,7 @@ import {
   DialogTitle,
   makeStyles,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import { Button } from "../../component/Button";
 import { InviteService } from "../../service/InviteService";
@@ -107,7 +108,9 @@ export function InviteDialog({ onClose, onSuccess }: Props) {
           >
             Send
           </Button>
-          {state.errorMessage}
+          <Typography align="center" color="error">
+            {state.errorMessage}
+          </Typography>
         </form>
       </DialogContent>
     </Dialog>
